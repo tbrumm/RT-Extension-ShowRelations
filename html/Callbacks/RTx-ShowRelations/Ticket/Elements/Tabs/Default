@@ -15,10 +15,6 @@ $args ||= '';
 $tabs->{"ii"} = { path      => "RTx-ShowRelations/Search/Relations.html$args",
                   title     => loc('Show Relations'),
                   };
-if ($current_tab =~  "RTx-ShowRelations/Search/Relations.html") {
-    $current_tab = "RTx-ShowRelations/Search/Relations.html$args";
-}
-
 </%init>
 <%args>
 $tabs
