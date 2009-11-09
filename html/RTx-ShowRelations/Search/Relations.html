@@ -1,0 +1,228 @@
+<& /Elements/Header, Title => $title, Refresh => $session{'tickets_refresh_interval'} &>
+<& /Ticket/Elements/Tabs, 
+    current_tab => "Search/Relations.html".$QueryString, 
+    Title => $title,
+    Query => $Query,
+    Rows => $Rows,
+    OrderBy => $OrderBy,
+    Order => $Order &>
+
+<table border="0" cellspacing="0" cellpadding="1" width="100%">
+<tbody>
+<tr class="collection-as-table">
+<th style="background-color:#efefef;font-size:16px" class="collection-as-table" rowspan="1" colspan="5">Original Ticket</th>
+<th style="background-color:#efefef" class="collection-as-table" rowspan="1">&nbsp;</th>
+<th style="background-color:#efefef;font-size:16px" class="collection-as-table" rowspan="1" colspan="5">Related Ticket</th>
+</tr>
+<tr><td colspan="11" style="border-top: 3px solid #000">&nbsp;</td></tr>
+<tr class="collection-as-table">
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-left:1px solid #000;border-top:1px solid #000" class="collection-as-table">Id</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Subject</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Status</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Queue</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Owner</td>
+      <td style="text-align:center;font-weight:bold;border-bottom:1px solid #000;border-left:2px solid #000;border-right:2px solid #000;border-top:1px solid #000" class="collection-as-table">Relation</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Id</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Subject</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Status</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Queue</td>
+      <td style="font-weight:bold;border-bottom:1px solid #000;border-right:1px solid #000;border-top:1px solid #000" class="collection-as-table">Owner</td>
+</tr>
+
+% my $i =0;
+% my $hasRelation=0;
+% while (my $original = $linkedsummary->Next) {
+% while (my $related = $original->DependsOn->Next) {
+% $i++;
+% $hasRelation=1;
+% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
+      <td class="collection-as-table"><%$original->Status%></td>
+      <td class="collection-as-table"><%$original->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><img src="<%$RT::WebImagesURL%>/DependsOn.gif" alt="DependsOn" width="20" height="17" /></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
+      <td class="collection-as-table"><%$related->TargetObj->Status%></td>
+      <td class="collection-as-table"><%$related->TargetObj->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$related->TargetObj->OwnerObj->Name%></td>
+</tr>
+
+% }
+
+% while (my $related = $original->DependedOnBy->Next) {
+% $i++;
+% $hasRelation=1;
+% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
+      <td class="collection-as-table"><%$original->Status%></td>
+      <td class="collection-as-table"><%$original->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><img src="<%$RT::WebImagesURL%>/DependedOnBy.gif" alt="DependedOnBy" width="20" height="17" /></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
+      <td class="collection-as-table"><%$related->BaseObj->Status%></td>
+      <td class="collection-as-table"><%$related->BaseObj->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$related->BaseObj->OwnerObj->Name%></td>
+</tr>
+
+% }
+
+% while (my $related = $original->RefersTo->Next) {
+% $i++;
+% $hasRelation=1;
+% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
+      <td class="collection-as-table"><%$original->Status%></td>
+      <td class="collection-as-table"><%$original->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><img src="<%$RT::WebImagesURL%>/RefersTo.gif" alt="RefersTo" width="20" height="17" /></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
+      <td class="collection-as-table"><%$related->TargetObj->Status%></td>
+      <td class="collection-as-table"><%$related->TargetObj->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$related->TargetObj->OwnerObj->Name%></td>
+</tr>
+
+% }
+
+% while (my $related = $original->ReferredToBy->Next) {
+% $i++;
+% $hasRelation=1;
+% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
+      <td class="collection-as-table"><%$original->Status%></td>
+      <td class="collection-as-table"><%$original->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><img src="<%$RT::WebImagesURL%>/ReferredToBy.gif" alt="ReferredToBy" width="20" height="17" /></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
+      <td class="collection-as-table"><%$related->BaseObj->Status%></td>
+      <td class="collection-as-table"><%$related->BaseObj->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$related->BaseObj->OwnerObj->Name%></td>
+</tr>
+
+% }
+% $m->out('<tr><td colspan="11" style="border-top: 1px solid #000">&nbsp;</td></tr>' ) if ($hasRelation==1);
+% $hasRelation=0;
+% }
+
+
+
+</tbody>
+</table>
+
+<table cellpadding="1" cellspacing="1" border="0" style="text-align: left; width: 100%;">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>/DependsOn.gif" alt="DependsOn" width="20" height="17" /></td>
+      <td style="vertical-align: top;">Depends on</td>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>/DependedOnBy.gif" alt="DependedOnBy" width="20" height="17" /></td>
+      <td style="vertical-align: top;">Depended on by</td>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>/RefersTo.gif" alt="RefersTo" width="20" height="17" /></td>
+      <td style="vertical-align: top;">Refers to</td>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>/ReferredToBy.gif" alt="ReferredToBy" width="20" height="17" /></td>
+      <td style="vertical-align: top;">Referred to by</td>
+    </tr>
+  </tbody>
+</table>
+% my %hiddens = (Query => $Query, Rows => $Rows, OrderBy => $OrderBy,  Order => $Order, HideResults => $HideResults, Page => $Page );
+<div align="right">
+<form method="get" action="<%$RT::WebPath%>/Search/Relations.html">
+%foreach my $key (keys(%hiddens)) {
+<input type="hidden" class="hidden" name="<%$key%>" value="<%defined($hiddens{$key})?$hiddens{$key}:''%>"/>
+%}
+<& /Elements/Refresh, Name => 'TicketsRefreshInterval', Default => $session {'tickets_refresh_interval'} &>
+<input type="submit" class="button" value="<&|/l&>Go!</&>" />
+</form>
+</div>
+<div align="right">
+
+<%INIT>
+# TEST mit der Uebergabe des Query vom QueryBuilder
+
+my $linkedsummary = RT::Tickets->new($session{'CurrentUser'});
+$linkedsummary->FromSQL($Query);
+
+
+# Read from user preferences
+my $prefs = $session{'CurrentUser'}->UserObj->Preferences("SearchDisplay") || {};
+
+# These variables are what define a search_hash; this is also
+# where we give sane defaults.
+$Order       ||= $prefs->{'Order'} || 'ASC';
+$OrderBy     ||= $prefs->{'OrderBy'} || 'id';
+
+# Some forms pass in "RowsPerPage" rather than "Rows"
+# We call it RowsPerPage everywhere else.
+
+if ( !defined($Rows) ) {
+    if ( $ARGS{'RowsPerPage'} ) {
+        $Rows = $ARGS{'RowsPerPage'};
+    } elsif ( defined $prefs->{'RowsPerPage'} ) {
+        $Rows = $prefs->{'RowsPerPage'};
+    } else {
+        $Rows = 50;
+    }
+}
+
+my ($title, $ticketcount);
+$session{'i'}++;
+$session{'tickets'} = RT::Tickets->new($session{'CurrentUser'}) ;
+$session{'tickets'}->FromSQL($Query) if ($Query);
+
+if ($OrderBy =~ /\|/) {
+    # Multiple Sorts
+    my @OrderBy = split /\|/,$OrderBy;
+    my @Order = split /\|/,$Order;
+    $session{'tickets'}->OrderByCols(
+        map { { FIELD => $OrderBy[$_], ORDER => $Order[$_] } } ( 0
+        .. $#OrderBy ) );; 
+} else {
+    $session{'tickets'}->OrderBy(FIELD => $OrderBy, ORDER => $Order); 
+}
+
+$session{'CurrentSearchHash'} = {
+    Query       => $Query,
+    Page       => $Page,
+    Order       => $Order,
+    OrderBy     => $OrderBy,
+    RowsPerPage => $Rows
+    };
+
+
+if ( $session{'tickets'}->Query()) {
+    $ticketcount = $session{tickets}->CountAll();
+    $title = loc('Found [quant,_1,ticket]', $ticketcount);
+} else {
+    $title = loc("Find tickets");
+}
+
+my $QueryString = "?".$m->comp('/Elements/QueryString',
+                               Query => $Query,
+                               Rows => $Rows,
+                               OrderBy => $OrderBy,
+                               Order => $Order,
+                               Page => $Page);
+my $ShortQueryString = "?".$m->comp('/Elements/QueryString', Query => $Query);
+
+if ($ARGS{'TicketsRefreshInterval'}) {
+	$session{'tickets_refresh_interval'} = $ARGS{'TicketsRefreshInterval'};
+}
+</%INIT>
+<%CLEANUP>
+$session{'tickets'}->PrepForSerialization();
+</%CLEANUP>
+<%ARGS>
+$Query => undef
+$Format => undef 
+$HideResults => 0
+$Rows => undef
+$Page => 1
+$OrderBy => undef
+$Order => undef
+</%ARGS>
