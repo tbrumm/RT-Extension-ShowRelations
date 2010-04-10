@@ -12,7 +12,7 @@ $args= "?" . $m->comp(
 $args ||= '';
 
 
-$tabs->{"ii"} = { path      => "RTx-ShowRelations/Search/Relations.html$args",
+$tabs->{"ii"} = { path      => "Search/Relations.html$args",
                   title     => loc('Show Relations'),
                   };
 </%init>
