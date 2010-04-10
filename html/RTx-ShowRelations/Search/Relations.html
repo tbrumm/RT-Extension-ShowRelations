@@ -41,7 +41,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><img src="<%$RT::WebImagesURL%>/DependsOn.gif" alt="DependsOn" width="20" height="17" /></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">=></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->TargetObj->Status%></td>
@@ -60,7 +60,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><img src="<%$RT::WebImagesURL%>/DependedOnBy.gif" alt="DependedOnBy" width="20" height="17" /></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><=</td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->BaseObj->Status%></td>
@@ -79,7 +79,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><img src="<%$RT::WebImagesURL%>/RefersTo.gif" alt="RefersTo" width="20" height="17" /></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">-></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->TargetObj->Status%></td>
@@ -98,7 +98,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><img src="<%$RT::WebImagesURL%>/ReferredToBy.gif" alt="ReferredToBy" width="20" height="17" /></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table"><-</td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->BaseObj->Status%></td>
@@ -119,13 +119,13 @@
 <table cellpadding="1" cellspacing="1" border="0" style="text-align: left; width: 100%;">
   <tbody>
     <tr>
-      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>/DependsOn.gif" alt="DependsOn" width="20" height="17" /></td>
+      <td style="vertical-align: top;">=></td>
       <td style="vertical-align: top;">Depends on</td>
-      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>/DependedOnBy.gif" alt="DependedOnBy" width="20" height="17" /></td>
+      <td style="vertical-align: top;"><=</td>
       <td style="vertical-align: top;">Depended on by</td>
-      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>/RefersTo.gif" alt="RefersTo" width="20" height="17" /></td>
+      <td style="vertical-align: top;">-></td>
       <td style="vertical-align: top;">Refers to</td>
-      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>/ReferredToBy.gif" alt="ReferredToBy" width="20" height="17" /></td>
+      <td style="vertical-align: top;"><-</td>
       <td style="vertical-align: top;">Referred to by</td>
     </tr>
   </tbody>
