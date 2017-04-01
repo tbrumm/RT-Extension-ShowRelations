@@ -3,8 +3,8 @@ MANIFEST                        This list of files
 META.yml
 Makefile.PL
 README
-html/Callbacks/RTx-ShowRelations/Ticket/Elements/Tabs/Default
-html/RTx-ShowRelations/Search/Relations.html
+html/Callbacks/ShowRelations/Elements/Tabs/Privileged
+html/Search/Relations.html
 inc/Module/Install.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
@@ -14,4 +14,4 @@ inc/Module/Install/Metadata.pm
 inc/Module/Install/RTx.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-lib/RTx/ShowRelations.pm
+lib/RT/Extension/ShowRelations.pm
