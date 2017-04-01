@@ -1,5 +1,5 @@
 NAME
-  RTx::ShowRelations
+RT-Extension-ShowRelations
 
 DESCRIPTION
   If you work a lot with ticket links, it is hard to keep an overview
@@ -7,29 +7,34 @@ DESCRIPTION
   each ticket to see the status/owner, with this RT-Extension you can
   see all your tickets (from a search) with their related tickets
 
-  Attention: This is outdated and will not work under RT4+. A new 
-  Version will be ready soon.
+  Work in Progress to Update for RT 4.4 and usage of brand new CSS
+  Feature Grid - new Browsers are needed!
+
 
 INSTALLATION
-  1. Run "perl Makefile.PL"
 
-  2. Run "make"
+  Edit your /opt/rt4/etc/RT_SiteConfig.pm
+    If you are using RT 4.2 or greater, add this line:
 
-  3. Run "make install" (you may need root permissions)
+        Plugin('RT::Extension::ShowRelations');
 
-  4. Additionally, if you're running 3.8, you'll need to add
-     "RTx::ShowRelations" to @Plugins in
-     etc/RT_SiteConfig.pm.  For example:
-     Set(@Plugins, qw(RTx::ShowRelations));
+    For RT 4.0, add this line:
 
-  6. Clear RT's mason cache and restart the web server to make sure the
-     extension is incorporated.
-   
+        Set(@Plugins, qw(RT::Extension::ShowRelations));
+
+    or add RT::Extension::ShowRelations to your existing @Plugins line.
+
+  Clear your mason cache
+        rm -rf /opt/rt4/var/mason_data/obj
+
+  Restart your webserver
+
 LICENSE
   Under the same terms as perl itself.
 
 AUTHOR
-  Torsten Brumm, http://technik.picturepunxx.de/ <technik@picturepunxx.de>
+  Torsten Brumm, http://www.picturepunxx.de/ <technik@picturepunxx.de>
 
 TODO
-  Add functionality for Parent and Child Tickets and make it run also if Links to Assets and RTFM Articles exsists
+  Add functionality for Parent and Child Tickets and make it run also if
+  Links to Assets and RTFM Articles exsists
