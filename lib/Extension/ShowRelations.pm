@@ -10,8 +10,13 @@ our $VERSION = '1.01';
 =head1 NAME
 RT::Extension::ShowRelations - Show Ticket Relations
 =head1 DESCRIPTION
-Show related Tickets, Assets and Knowledge Base articles in a tabular view
-outing from a search
+If you work a lot with ticket links, it is hard to keep an overview
+of all tickets and related ticket status. Normally you have to open
+each ticket to see the status/owner, with this RT-Extension you can
+see all your tickets (from a search) with their related tickets
+
+Work in Progress to Update for RT 4.4 and usage of brand new CSS
+Feature Grid - new Browsers are needed!
 
 =head1 INSTALLATION
 =over
