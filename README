@@ -7,10 +7,6 @@ DESCRIPTION
   each ticket to see the status/owner, with this RT-Extension you can
   see all your tickets (from a search) with their related tickets
 
-  Work in Progress to Update for RT 4.4 and usage of brand new CSS
-  Feature Grid - new Browsers are needed!
-
-
 INSTALLATION
 
   Edit your /opt/rt4/etc/RT_SiteConfig.pm
@@ -34,7 +30,3 @@ LICENSE
 
 AUTHOR
   Torsten Brumm, http://www.picturepunxx.de/ <technik@picturepunxx.de>
-
-TODO
-  Add functionality for Parent and Child Tickets and make it run also if
-  Links to Assets and RTFM Articles exsists
