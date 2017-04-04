@@ -1,21 +1,17 @@
-<%init>
-my $args;
-$args= "?" . $m->comp(
-    '/Elements/QueryString',
-    Query   => $ARGS{'Query'}   || $session{'CurrentSearchHash'}->{'Query'},
-    Format  => $ARGS{'Format'}  || $session{'CurrentSearchHash'}->{'Format'},
-    OrderBy => $ARGS{'OrderBy'} || $session{'CurrentSearchHash'}->{'OrderBy'},
-    Order   => $ARGS{'Order'}   || $session{'CurrentSearchHash'}->{'Order'},
-    Page   => $ARGS{'Page'}   || $session{'CurrentSearchHash'}->{'Page'},
-    Rows    => $ARGS{'Rows'},
-  ) if ($ARGS{'Query'} or $session{'CurrentSearchHash'}->{'Query'});
-$args ||= '';
+<%INIT>
+my $request_path = $HTML::Mason::Commands::r->path_info;
 
+if ( $request_path =~ qr{^/Search/} ) {
+    if ( $request_path =~ qr{^/Search/Relations.html} && $DECODED_ARGS->{Ticket} ) {
+        PageMenu->child( 'relat' => title => loc('Related Tickets'), path => '/Search/Relations.html' . $DECODED_ARGS->{Query} );
+    }
+    elsif ( $request_path !~ qr{^/Search/Simple.html$} || $DECODED_ARGS->{q} ) {
+        my $current_search = $session{"CurrentSearchHash"} || {};
+        my $query = $DECODED_ARGS->{'Query'} || $current_search->{'Query'};
+        if ( $query ) {
+            PageMenu->child( 'relat' => title => loc('Related Tickets'), path => '/Search/Relations.html?Query=' . $query );
+        }
+    }
+}
 
-$tabs->{"ii"} = { path      => "Search/Relations.html$args",
-                  title     => loc('Show Relations'),
-                  };
-</%init>
-<%args>
-$tabs
-</%args>
+</%INIT>
