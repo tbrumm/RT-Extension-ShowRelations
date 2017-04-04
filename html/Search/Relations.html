@@ -1,11 +1,8 @@
-<& /Elements/Header, Title => $title, Refresh => $session{'tickets_refresh_interval'} &>
-<& /Ticket/Elements/Tabs, 
-    current_tab => "Search/Relations.html".$QueryString, 
-    Title => $title,
-    Query => $Query,
-    Rows => $Rows,
-    OrderBy => $OrderBy,
-    Order => $Order &>
+<& /Elements/Header, Title => $title,
+    Refresh => $session{'tickets_refresh_interval'} || RT->Config->Get('SearchResultsRefreshInterval', $session{'CurrentUser'} ),
+    &>
+
+<& /Elements/Tabs &>
 
 <table border="0" cellspacing="0" cellpadding="1" width="100%">
 <tbody>
@@ -71,6 +68,7 @@
 % }
 
 % while (my $related = $original->RefersTo->Next) {
+% next unless UNIVERSAL::isa($related->TargetObj, 'RT::Ticket');
 % $i++;
 % $hasRelation=1;
 % $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
@@ -90,6 +88,7 @@
 % }
 
 % while (my $related = $original->ReferredToBy->Next) {
+% next unless UNIVERSAL::isa($related->BaseObj, 'RT::Ticket');
 % $i++;
 % $hasRelation=1;
 % $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
@@ -105,6 +104,46 @@
       <td class="collection-as-table"><%$related->BaseObj->QueueObj->Name%></td>
       <td class="collection-as-table"><%$related->BaseObj->OwnerObj->Name%></td>
 </tr>
+
+% }
+
+
+% while (my $related = $original->Members->Next) {
+% $i++;
+% $hasRelation=1;
+% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
+      <td class="collection-as-table"><%$original->Status%></td>
+      <td class="collection-as-table"><%$original->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">&Rarr;</td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
+      <td class="collection-as-table"><%$related->BaseObj->Status%></td>
+      <td class="collection-as-table"><%$related->BaseObj->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$related->BaseObj->OwnerObj->Name%></td>
+</tr>
+
+% }
+
+% while (my $related = $original->MemberOf->Next) {
+% $i++;
+% $hasRelation=1;
+% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
+      <td class="collection-as-table"><%$original->Status%></td>
+      <td class="collection-as-table"><%$original->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
+      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">&Larr;</td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
+      <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
+      <td class="collection-as-table"><%$related->TargetObj->Status%></td>
+      <td class="collection-as-table"><%$related->TargetObj->QueueObj->Name%></td>
+      <td class="collection-as-table"><%$related->TargetObj->OwnerObj->Name%></td>
+</tr>
+
 
 % }
 % $m->out('<tr><td colspan="11" style="border-top: 1px solid #000">&nbsp;</td></tr>' ) if ($hasRelation==1);
@@ -127,6 +166,11 @@
       <td style="vertical-align: top;">Refers to</td>
       <td style="vertical-align: top;">&larr;</td>
       <td style="vertical-align: top;">Referred to by</td>
+      <td style="vertical-align: top;">&Rarr;</td>
+      <td style="vertical-align: top;">Children</td>
+      <td style="vertical-align: top;">&Larr;</td>
+      <td style="vertical-align: top;">Parent</td>
+
     </tr>
   </tbody>
 </table>
@@ -147,7 +191,6 @@
 
 my $linkedsummary = RT::Tickets->new($session{'CurrentUser'});
 $linkedsummary->FromSQL($Query);
-
 
 # Read from user preferences
 my $prefs = $session{'CurrentUser'}->UserObj->Preferences("SearchDisplay") || {};
