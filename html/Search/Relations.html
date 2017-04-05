@@ -4,27 +4,31 @@
 
 <& /Elements/Tabs &>
 
-<table border="0" cellspacing="0" cellpadding="1" width="100%">
+<table cellspacing="0" class="ticket-list collection-as-table">
 <tbody>
 <tr class="collection-as-table">
-<th style="background-color:#efefef;font-size:16px" class="collection-as-table" rowspan="1" colspan="5">Original Ticket</th>
-<th style="background-color:#efefef" class="collection-as-table" rowspan="1">&nbsp;</th>
-<th style="background-color:#efefef;font-size:16px" class="collection-as-table" rowspan="1" colspan="5">Related Ticket</th>
+<th class="collection-as-table" rowspan="1" colspan="5">Original Ticket</th>
+<th class="collection-as-table" rowspan="1">&nbsp;</th>
+<th class="collection-as-table" rowspan="1" colspan="5">Related Ticket</th>
 </tr>
+</tbody>
+
+<tbody>
 <tr><td colspan="11" style="border-top: 3px solid #000">&nbsp;</td></tr>
 <tr class="collection-as-table">
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-left:1px solid #000;border-top:1px solid #000" class="collection-as-table">Id</td>
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Subject</td>
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Status</td>
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Queue</td>
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Owner</td>
-      <td style="text-align:center;font-weight:bold;border-bottom:1px solid #000;border-left:2px solid #000;border-right:2px solid #000;border-top:1px solid #000" class="collection-as-table">Relation</td>
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Id</td>
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Subject</td>
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Status</td>
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-top:1px solid #000" class="collection-as-table">Queue</td>
-      <td style="font-weight:bold;border-bottom:1px solid #000;border-right:1px solid #000;border-top:1px solid #000" class="collection-as-table">Owner</td>
+      <td class="collection-as-table">Id</td>
+      <td class="collection-as-table">Subject</td>
+      <td class="collection-as-table">Status</td>
+      <td class="collection-as-table">Queue</td>
+      <td class="collection-as-table">Owner</td>
+      <td style="text-align:center;" class="collection-as-table">Relation</td>
+      <td class="collection-as-table">Id</td>
+      <td class="collection-as-table">Subject</td>
+      <td class="collection-as-table">Status</td>
+      <td class="collection-as-table">Queue</td>
+      <td class="collection-as-table">Owner</td>
 </tr>
+</tbody>
 
 % my $i =0;
 % my $hasRelation=0;
@@ -32,127 +36,131 @@
 % while (my $related = $original->DependsOn->Next) {
 % $i++;
 % $hasRelation=1;
-% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+<tbody class="list-item">
+% $m->out('<tr class="' . ( $i % 2 ? 'evenline' : 'oddline' ) . '" >' );
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">&rArr;</td>
+      <td style="text-align:center;" class="collection-as-table">&rArr;</td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->TargetObj->Status%></td>
       <td class="collection-as-table"><%$related->TargetObj->QueueObj->Name%></td>
       <td class="collection-as-table"><%$related->TargetObj->OwnerObj->Name%></td>
 </tr>
-
+</tbody>
 % }
 
 % while (my $related = $original->DependedOnBy->Next) {
 % $i++;
 % $hasRelation=1;
-% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+<tbody class="list-item">
+% $m->out('<tr class="' . ( $i % 2 ? 'evenline' : 'oddline' ) . '" >' );
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">&lArr;</td>
+      <td style="text-align:center;" class="collection-as-table">&lArr;</td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->BaseObj->Status%></td>
       <td class="collection-as-table"><%$related->BaseObj->QueueObj->Name%></td>
       <td class="collection-as-table"><%$related->BaseObj->OwnerObj->Name%></td>
 </tr>
-
+</tbody>
 % }
 
 % while (my $related = $original->RefersTo->Next) {
 % next unless UNIVERSAL::isa($related->TargetObj, 'RT::Ticket');
 % $i++;
 % $hasRelation=1;
-% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+<tbody class="list-item">
+% $m->out('<tr class="' . ( $i % 2 ? 'evenline' : 'oddline' ) . '" >' );
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">&rarr;</td>
+      <td style="text-align:center;" class="collection-as-table">&rarr;</td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->TargetObj->Status%></td>
       <td class="collection-as-table"><%$related->TargetObj->QueueObj->Name%></td>
       <td class="collection-as-table"><%$related->TargetObj->OwnerObj->Name%></td>
 </tr>
-
+</tbody>
 % }
 
 % while (my $related = $original->ReferredToBy->Next) {
 % next unless UNIVERSAL::isa($related->BaseObj, 'RT::Ticket');
 % $i++;
 % $hasRelation=1;
-% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+<tbody class="list-item">
+% $m->out('<tr class="' . ( $i % 2 ? 'evenline' : 'oddline' ) . '" >' );
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">&larr;</td>
+      <td style="text-align:center;" class="collection-as-table">&larr;</td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->BaseObj->Status%></td>
       <td class="collection-as-table"><%$related->BaseObj->QueueObj->Name%></td>
       <td class="collection-as-table"><%$related->BaseObj->OwnerObj->Name%></td>
 </tr>
-
+</tbody>
 % }
-
 
 % while (my $related = $original->Members->Next) {
 % $i++;
 % $hasRelation=1;
-% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+<tbody class="list-item">
+% $m->out('<tr class="' . ( $i % 2 ? 'evenline' : 'oddline' ) . '" >' );
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">&Rarr;</td>
+      <td style="text-align:center;" class="collection-as-table">&Rarr;</td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->BaseObj->Status%></td>
       <td class="collection-as-table"><%$related->BaseObj->QueueObj->Name%></td>
       <td class="collection-as-table"><%$related->BaseObj->OwnerObj->Name%></td>
 </tr>
-
+</tbody>
 % }
+
 
 % while (my $related = $original->MemberOf->Next) {
 % $i++;
 % $hasRelation=1;
-% $m->out('<tr class="' . ( $i % 2 ? 'oddline' : 'evenline' ) . '" >' );
+<tbody class="list-item">
+% $m->out('<tr class="' . ( $i % 2 ? 'evenline' : 'oddline' ) . '" >' );
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$original->id%>"><%$original->Subject%></a></td>
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;border-left:2px solid #000;border-right:2px solid #000" class="collection-as-table">&Larr;</td>
+      <td style="text-align:center;" class="collection-as-table">&Larr;</td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->TargetObj->Status%></td>
       <td class="collection-as-table"><%$related->TargetObj->QueueObj->Name%></td>
       <td class="collection-as-table"><%$related->TargetObj->OwnerObj->Name%></td>
 </tr>
-
-
+</tbody>
 % }
-% $m->out('<tr><td colspan="11" style="border-top: 1px solid #000">&nbsp;</td></tr>' ) if ($hasRelation==1);
+
+
+% $m->out('<tr><td colspan="11">&nbsp;</td></tr>' ) if ($hasRelation==1);
 % $hasRelation=0;
 % }
 
-
-
-</tbody>
 </table>
 
 <table cellpadding="1" cellspacing="1" border="0" style="text-align: left; width: 100%;">
