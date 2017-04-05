@@ -1,0 +1,29 @@
+tr.evenline1 td,
+tr.evenline2 td,
+tr.evenline3 td,
+tr.evenline4 td,
+tr.oddline td,
+tr.oddline1 td,
+tr.oddline2 td,
+tr.oddline3 td,
+tr.oddline4 td {
+    padding-top: 0.5em;
+}
+
+tbody.list-item {
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+
+tr.evenline,
+tr.oddline {
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+}
+
+tr.evenline+tr.evenline td,
+tr.oddline+tr.oddline td {
+    padding-top: 0;
+    border: none;
+}
