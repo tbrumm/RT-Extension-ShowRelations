@@ -6,6 +6,7 @@ use warnings;
 
 our $VERSION = '1.01';
 
+RT->AddStyleSheets('relation.css');
 
 =head1 NAME
 RT::Extension::ShowRelations - Show Ticket Relations
