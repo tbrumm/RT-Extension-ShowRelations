@@ -16,6 +16,10 @@ tbody.list-item {
     border-bottom: 1px solid #cccccc;
 }
 
+tbody.relation-spacer {
+/*Define Space between two <tr> results*/
+}
+
 tr.evenline,
 tr.oddline {
     border-left: 1px solid #cccccc;
