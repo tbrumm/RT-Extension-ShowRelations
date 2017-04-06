@@ -43,7 +43,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;" class="collection-as-table">&rArr;</td>
+      <td style="text-align:center;" class="collection-as-table"><img src="<%$RT::WebImagesURL%>dependson.png" \></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->TargetObj->Status%></td>
@@ -63,7 +63,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;" class="collection-as-table">&lArr;</td>
+      <td style="text-align:center;" class="collection-as-table"><img src="<%$RT::WebImagesURL%>dependedonby.png" \></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->BaseObj->Status%></td>
@@ -84,7 +84,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;" class="collection-as-table">&rarr;</td>
+      <td style="text-align:center;" class="collection-as-table"><img src="<%$RT::WebImagesURL%>refersto.png" \></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->TargetObj->Status%></td>
@@ -105,7 +105,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;" class="collection-as-table">&larr;</td>
+      <td style="text-align:center;" class="collection-as-table"><img src="<%$RT::WebImagesURL%>referedtoby.png" \></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->BaseObj->Status%></td>
@@ -125,7 +125,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;" class="collection-as-table">&Rarr;</td>
+      <td style="text-align:center;" class="collection-as-table"><img src="<%$RT::WebImagesURL%>parent.png" \></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->BaseObj->id%>"><%$related->BaseObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->BaseObj->Status%></td>
@@ -146,7 +146,7 @@
       <td class="collection-as-table"><%$original->Status%></td>
       <td class="collection-as-table"><%$original->QueueObj->Name%></td>
       <td class="collection-as-table"><%$original->OwnerObj->Name%></td>
-      <td style="text-align:center;" class="collection-as-table">&Larr;</td>
+      <td style="text-align:center;" class="collection-as-table"><img src="<%$RT::WebImagesURL%>child.png" \></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->id%></a></td>
       <td class="collection-as-table"><a href="<%$RT::WebPath%>/Ticket/Display.html?id=<%$related->TargetObj->id%>"><%$related->TargetObj->Subject%></a></td>
       <td class="collection-as-table"><%$related->TargetObj->Status%></td>
@@ -157,7 +157,7 @@
 % }
 
 
-% $m->out('<tr><td colspan="11">&nbsp;</td></tr>' ) if ($hasRelation==1);
+% $m->out('<tbody class="relation-spacer"><tr><td colspan="11">&nbsp;</td></tr></tbody>' ) if ($hasRelation==1);
 % $hasRelation=0;
 % }
 
@@ -166,22 +166,23 @@
 <table cellpadding="1" cellspacing="1" border="0" style="text-align: left; width: 100%;">
   <tbody>
     <tr>
-      <td style="vertical-align: top;">&rArr;</td>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>dependson.png" \></td>
       <td style="vertical-align: top;">Depends on</td>
-      <td style="vertical-align: top;">&lArr;</td>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>dependedonby.png" \></td>
       <td style="vertical-align: top;">Depended on by</td>
-      <td style="vertical-align: top;">&rarr;</td>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>refersto.png" \></td>
       <td style="vertical-align: top;">Refers to</td>
-      <td style="vertical-align: top;">&larr;</td>
-      <td style="vertical-align: top;">Referred to by</td>
-      <td style="vertical-align: top;">&Rarr;</td>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>referedtoby.png" \></td>
+      <td style="vertical-align: top;">Refered to by</td>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>child.png" \></td>
       <td style="vertical-align: top;">Children</td>
-      <td style="vertical-align: top;">&Larr;</td>
+      <td style="vertical-align: top;"><img src="<%$RT::WebImagesURL%>parent.png" \></td>
       <td style="vertical-align: top;">Parent</td>
-
     </tr>
   </tbody>
 </table>
+
+<br><br>
 % my %hiddens = (Query => $Query, Rows => $Rows, OrderBy => $OrderBy,  Order => $Order, HideResults => $HideResults, Page => $Page );
 <div align="right">
 <form method="get" action="<%$RT::WebPath%>/Search/Relations.html">
